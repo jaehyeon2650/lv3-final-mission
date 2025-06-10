@@ -41,6 +41,10 @@ public class Member {
         return email.getEmail();
     }
 
+    public Long getId() {
+        return id;
+    }
+
     protected Member() {
 
     }
