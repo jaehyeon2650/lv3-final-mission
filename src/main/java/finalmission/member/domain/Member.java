@@ -45,6 +45,10 @@ public class Member {
         return id;
     }
 
+    public boolean isSamePassword(String password){
+        return this.password.equals(password);
+    }
+
     protected Member() {
 
     }
