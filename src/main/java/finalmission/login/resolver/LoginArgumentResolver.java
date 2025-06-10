@@ -30,7 +30,7 @@ public class LoginArgumentResolver implements HandlerMethodArgumentResolver {
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
                                   NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        HttpServletRequest request = (HttpServletRequest) webRequest;
+        HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
         String accessToken = cookieManager.getAccessToken(request);
         return jwtProvider.extractIdFromAccessToken(accessToken);
     }
