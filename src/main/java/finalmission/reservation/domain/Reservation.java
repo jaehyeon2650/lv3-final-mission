@@ -50,6 +50,10 @@ public class Reservation {
         }
     }
 
+    public boolean isOwner(Long memberId){
+        return this.member.getId().equals(memberId);
+    }
+
     public Long getId() {
         return id;
     }
@@ -66,7 +70,7 @@ public class Reservation {
         return reservationTime.getTime();
     }
 
-    public Long getMemberId(){
-        return member.getId();
+    public Member getMember() {
+        return member;
     }
 }
