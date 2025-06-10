@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: lv2-final-mission
+  datasource:
+    url: jdbc:h2:mem:database
+  h2:
+    console:
+      enabled: true
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: create-drop
+    defer-datasource-initialization: true
+  sql:
+    init:
+      data-locations: classpath:init.sql
+api:
+  key: 201c82b8770246368c2cc84a90246f73
+jwt:
+  key: asfkldsajklf23180947fsjklsadfsda314fsadf31rfasdf133rfdafadsadasd194ewfnhfsajk

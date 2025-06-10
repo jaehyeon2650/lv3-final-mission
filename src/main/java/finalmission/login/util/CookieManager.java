@@ -1,5 +1,6 @@
 package finalmission.login.util;
 
+import finalmission.login.exception.LoginException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -12,6 +13,9 @@ public class CookieManager {
 
     public String getAccessToken(HttpServletRequest request){
         Cookie[] cookies = request.getCookies();
+        if(cookies == null){
+            throw new LoginException("로그인된 상태가 아닙니다.");
+        }
         for (Cookie cookie : cookies) {
             if(cookie.getName().equals(TOKEN_COOKIE_NAME)){
                 return cookie.getValue();
