@@ -8,7 +8,9 @@ import finalmission.reservation.domain.ReservationTime;
 import finalmission.reservation.domain.ReservationTimeRepository;
 import finalmission.reservation.dto.request.CreateReservationRequest;
 import finalmission.reservation.dto.response.CreateReservationResponse;
+import finalmission.reservation.dto.response.ReservationResponse;
 import java.time.LocalDateTime;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -39,5 +41,30 @@ public class ReservationService {
                         member, reservationTime));
 
         return CreateReservationResponse.of(reservation);
+    }
+
+    public List<ReservationResponse> findAllReservation() {
+        return reservationRepository.findAll()
+                .stream().map(ReservationResponse::of)
+                .toList();
+    }
+
+    public ReservationResponse findMyReservation(Long reservationId, Long loginId) {
+        Reservation reservation = getMyReservation(reservationId, loginId);
+        return ReservationResponse.of(reservation);
+    }
+
+    private Reservation getMyReservation(Long reservationId, Long loginId) {
+        Reservation reservation = reservationRepository.findById(reservationId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않은 예약 번호입니다."));
+        if (!reservation.isOwner(loginId)) {
+            throw new IllegalArgumentException("본인 예약이 아닙니다");
+        }
+        return reservation;
+    }
+
+    public void deleteReservation(Long reservationId, Long loginId) {
+        Reservation myReservation = getMyReservation(reservationId, loginId);
+        reservationRepository.deleteById(myReservation.getId());
     }
 }
