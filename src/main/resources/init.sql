@@ -8,7 +8,7 @@ insert into reservation_time(time) values('13:00');
 insert into reservation_time(time) values('14:00');
 insert into reservation_time(time) values('15:00');
 
-insert into reservation(reservation_date,member_id,time_id) values ('2025-06-11',1L,1L);
-insert into reservation(reservation_date,member_id,time_id) values ('2025-06-11',1L,2L);
-insert into reservation(reservation_date,member_id,time_id) values ('2025-06-11',2L,3L);
-insert into reservation(reservation_date,member_id,time_id) values ('2025-06-11',2L,4L);
+insert into reservation(reservation_date,member_id,time_id) values ('2025-06-11',1,1);
+insert into reservation(reservation_date,member_id,time_id) values ('2025-06-11',1,2);
+insert into reservation(reservation_date,member_id,time_id) values ('2025-06-11',2,3);
+insert into reservation(reservation_date,member_id,time_id) values ('2025-06-11',2,4);
