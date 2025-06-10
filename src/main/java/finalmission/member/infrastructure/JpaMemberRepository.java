@@ -9,4 +9,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface JpaMemberRepository extends CrudRepository<Member, Long>, MemberRepository {
 
     Optional<Member> findByEmail(Email email);
+
+    boolean existsByEmail(Email email);
 }

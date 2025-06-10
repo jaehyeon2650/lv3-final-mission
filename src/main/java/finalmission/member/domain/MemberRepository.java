@@ -8,4 +8,6 @@ public interface MemberRepository {
     Member save(Member member);
 
     Optional<Member> findByEmail(Email email);
+
+    boolean existsByEmail(Email email);
 }
