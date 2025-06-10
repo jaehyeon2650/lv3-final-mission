@@ -6,6 +6,8 @@ import static org.springframework.test.web.client.match.MockRestRequestMatchers.
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withBadRequest;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import finalmission.config.RestClientTestConfig;
 import finalmission.member.domain.RandomName;
 import org.junit.jupiter.api.DisplayName;
@@ -13,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.client.MockRestServiceServer;
 
@@ -27,19 +30,27 @@ class RandomUsernameGeneratorTest {
     private RandomName randomName;
 
     @Autowired
+    private ObjectMapper objectMapper;
+
+    @Autowired
     private RandomUsernameGenerator randomUsernameGenerator;
 
     @Test
     @DisplayName("외부 API로 랜덤 유저 이름 생성 테스트")
-    void getRandomUsername_success() {
+    void getRandomUsername_success() throws JsonProcessingException {
         // given
-        String expectedName = "asd";
+        String response = """
+                [
+                    "aa"
+                ]
+                """;
         server.expect(requestTo("https://randommer.io/api/Name?nameType=firstname&quantity=1"))
                 .andRespond(withSuccess()
-                        .body(expectedName));
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(response));
         // when
         assertThat(randomUsernameGenerator.getRandomUsername())
-                .isEqualTo(expectedName);
+                .isEqualTo("aa");
     }
 
     @Test
