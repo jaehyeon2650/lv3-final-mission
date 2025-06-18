@@ -66,7 +66,7 @@ public class ReservationService {
         Reservation reservation = reservationRepository.findById(reservationId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않은 예약 번호입니다."));
         if (!reservation.isOwner(loginId)) {
-            throw new IllegalArgumentException("본인 예약이 아닙니다");
+            throw new IllegalArgumentException("본인 예약이 아닙니다.");
         }
         return reservation;
     }

@@ -5,7 +5,6 @@ import finalmission.member.dto.response.JoinResponse;
 import finalmission.member.service.MemberService;
 import java.net.URI;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,8 +19,8 @@ public class MemberController {
     }
 
     @PostMapping("/members")
-    public ResponseEntity<JoinResponse> join(@RequestBody JoinRequest joinRequest){
+    public ResponseEntity<JoinResponse> join(@RequestBody JoinRequest joinRequest) {
         JoinResponse response = memberService.createMember(joinRequest);
-        return ResponseEntity.created(URI.create("/members/"+response.id())).body(response);
+        return ResponseEntity.created(URI.create("/members/" + response.id())).body(response);
     }
 }

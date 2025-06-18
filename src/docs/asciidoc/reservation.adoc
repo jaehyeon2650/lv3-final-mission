@@ -1,0 +1,13 @@
+== Reservation API
+
+=== 모든 예약 조회
+operation::reservation-controller-test/get-all-reservations[snippets='curl-request,http-request,http-response']
+
+=== 예약 생성
+operation::reservation-controller-test/create-reservation[snippets='curl-request,http-request,http-response']
+
+=== 내 예약 조회
+operation::reservation-controller-test/get-my-reservation-info[snippets='curl-request,http-request,http-response']
+
+=== 내 예약 삭제
+operation::reservation-controller-test/delete-reservation[snippets='curl-request,http-request,http-response']

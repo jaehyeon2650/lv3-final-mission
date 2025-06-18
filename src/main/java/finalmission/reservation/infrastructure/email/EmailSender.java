@@ -31,7 +31,6 @@ public class EmailSender {
                     .uri("https://api.sendgrid.com/v3/mail/send")
                     .contentType(MediaType.APPLICATION_JSON)
                     .header(HttpHeaders.AUTHORIZATION, AUTHORIZATION_HEADER + apiKey)
-                    .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
                     .body(SendEmailRequest.ofSingleRecipient(SENDER_EMAIL, toEmail, subject, EMAIL_TYPE, content))
                     .retrieve()
                     .toBodilessEntity();
