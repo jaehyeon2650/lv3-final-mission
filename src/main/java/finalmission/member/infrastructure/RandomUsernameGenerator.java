@@ -1,10 +1,12 @@
 package finalmission.member.infrastructure;
 
 import finalmission.member.domain.RandomName;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
+@Slf4j
 @Component
 public class RandomUsernameGenerator {
     private static final String BASE_API_URL = "https://randommer.io/api";
@@ -29,6 +31,7 @@ public class RandomUsernameGenerator {
                     .body(String[].class)
                     [0];
         } catch (Exception e) {
+            log.error("[ERROR] 랜덤 이름 생성 API 실패");
             return randomName.createRandomUsername();
         }
     }
