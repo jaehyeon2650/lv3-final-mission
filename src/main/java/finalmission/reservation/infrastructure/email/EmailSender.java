@@ -2,6 +2,7 @@ package finalmission.reservation.infrastructure.email;
 
 import finalmission.reservation.infrastructure.email.dto.request.SendEmailRequest;
 import finalmission.reservation.infrastructure.email.dto.response.ErrorResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 
+@Slf4j
 @Component
 public class EmailSender {
 
@@ -36,7 +38,7 @@ public class EmailSender {
                     .toBodilessEntity();
         } catch (HttpClientErrorException e) {
             ErrorResponse errorResponse = e.getResponseBodyAs(ErrorResponse.class);
-            System.out.println(errorResponse.getFistErrorMessage());
+            log.error("메일 전송 실패 email = {}, errorMessage = {}",toEmail,errorResponse.getFistErrorMessage());
         }
     }
 }
