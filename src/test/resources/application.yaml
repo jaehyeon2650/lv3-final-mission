@@ -18,3 +18,7 @@ api:
   key: 201c82b8770246368c2cc84a90246f73
 jwt:
   key: asfkldsajklf23180947fsjklsadfsda314fsadf31rfasdf133rfdafadsadasd194ewfnhfsajk
+
+email:
+  api:
+    key: ${SENDGRID_API_KEY}

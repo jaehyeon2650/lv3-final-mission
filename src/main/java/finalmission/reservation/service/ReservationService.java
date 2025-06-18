@@ -9,6 +9,7 @@ import finalmission.reservation.domain.ReservationTimeRepository;
 import finalmission.reservation.dto.request.CreateReservationRequest;
 import finalmission.reservation.dto.response.CreateReservationResponse;
 import finalmission.reservation.dto.response.ReservationResponse;
+import finalmission.reservation.infrastructure.email.EmailSender;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -16,15 +17,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReservationService {
 
+    private static final String RESERVATION_SUBJECT = "회의실 예약이 완료되었습니다!";
+    private static final String RESERVATION_VALUE = "회의실 예약이 완료되었습니다. 감사합니다.";
+
     private final ReservationRepository reservationRepository;
     private final ReservationTimeRepository reservationTimeRepository;
     private final MemberRepository memberRepository;
+    private final EmailSender emailSender;
 
     public ReservationService(ReservationRepository reservationRepository,
-                              ReservationTimeRepository reservationTimeRepository, MemberRepository memberRepository) {
+                              ReservationTimeRepository reservationTimeRepository, MemberRepository memberRepository,
+                              EmailSender emailSender) {
         this.reservationRepository = reservationRepository;
         this.reservationTimeRepository = reservationTimeRepository;
         this.memberRepository = memberRepository;
+        this.emailSender = emailSender;
     }
 
     public CreateReservationResponse createReservation(CreateReservationRequest request, Long memberId) {
@@ -40,6 +47,7 @@ public class ReservationService {
                 Reservation.createReservationWithoutId(LocalDateTime.now(), request.date(),
                         member, reservationTime));
 
+        emailSender.sendSuccessEmail(member.getEmail(),RESERVATION_SUBJECT,RESERVATION_VALUE);
         return CreateReservationResponse.of(reservation);
     }
 
