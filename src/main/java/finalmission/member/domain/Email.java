@@ -13,18 +13,18 @@ public class Email {
         this.email = email;
     }
 
-    private void validateEmailFormat(String email){
-        if(!email.contains(EMAIL_ANNOTATION)){
+    protected Email() {
+
+    }
+
+    private void validateEmailFormat(String email) {
+        if (!email.contains(EMAIL_ANNOTATION)) {
             throw new IllegalArgumentException("이메일 형식이 올바르지 않습니다(@ 미포함).");
         }
     }
 
     public String getEmail() {
         return email;
-    }
-
-    protected Email() {
-
     }
 
     @Override

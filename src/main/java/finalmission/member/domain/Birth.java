@@ -14,6 +14,10 @@ public class Birth {
         this.birth = birth;
     }
 
+    protected Birth() {
+
+    }
+
     public static Birth createAdultBirth(LocalDate birth, LocalDate now) {
         validateBirth(birth, now);
         return new Birth(birth);
@@ -28,9 +32,5 @@ public class Birth {
 
     public LocalDate getBirth() {
         return birth;
-    }
-
-    protected Birth() {
-
     }
 }

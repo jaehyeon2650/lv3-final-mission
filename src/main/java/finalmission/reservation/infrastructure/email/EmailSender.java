@@ -38,7 +38,7 @@ public class EmailSender {
                     .toBodilessEntity();
         } catch (HttpClientErrorException e) {
             ErrorResponse errorResponse = e.getResponseBodyAs(ErrorResponse.class);
-            log.error("메일 전송 실패 email = {}, errorMessage = {}",toEmail,errorResponse.getFistErrorMessage());
+            log.error("메일 전송 실패 email = {}, errorMessage = {}", toEmail, errorResponse.getFistErrorMessage());
         }
     }
 }
