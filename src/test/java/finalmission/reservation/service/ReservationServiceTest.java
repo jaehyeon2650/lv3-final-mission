@@ -8,9 +8,11 @@ import static org.mockito.Mockito.verify;
 
 import finalmission.reservation.dto.request.CreateReservationRequest;
 import finalmission.reservation.dto.response.CreateReservationResponse;
+import finalmission.reservation.dto.response.ReservationResponse;
 import finalmission.reservation.infrastructure.email.EmailSender;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,5 +82,41 @@ class ReservationServiceTest {
         assertThat(response.username()).isEqualTo("cogi");
         assertThat(response.date()).isEqualTo(reservationDate);
         assertThat(response.time()).isEqualTo(LocalTime.of(10, 0));
+    }
+
+    @Test
+    @DisplayName("모든 예약을 조회한다.")
+    void findAllReservation(){
+        // when
+        List<ReservationResponse> reservations = reservationService.findAllReservation();
+        // then
+        assertThat(reservations).hasSize(4);
+    }
+
+    @Test
+    @DisplayName("다른 사람의 예약을 조회하려고 하면 예외가 발생한다.")
+    void getMyReservation_exception_notMine(){
+        assertThatThrownBy(()->reservationService.findMyReservation(1L,2L))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("본인 예약이 아닙니다.");
+    }
+
+    @Test
+    @DisplayName("없는 예약을 조회하려고하면 예외가 발생한다.")
+    void getMyReservation_exception_noReservation(){
+        assertThatThrownBy(()->reservationService.findMyReservation(100L,2L))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("존재하지 않은 예약 번호입니다.");
+    }
+
+    @Test
+    @DisplayName("본인의 예약을 조회한다.")
+    void getMyReservation(){
+        // given
+        ReservationResponse expected = new ReservationResponse(1L,"cogi",LocalDate.of(2025,6,11),LocalTime.of(10,0));
+        // when
+        ReservationResponse myReservation = reservationService.findMyReservation(1L, 1L);
+        // then
+        assertThat(myReservation).isEqualTo(expected);
     }
 }

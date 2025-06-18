@@ -1,0 +1,11 @@
+:doctype: book
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+= 맛집 예약 API 명세서
+
+include::member.adoc[]
+include::login.adoc[]
+include::reservation.adoc[]
