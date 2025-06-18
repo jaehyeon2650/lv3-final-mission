@@ -29,7 +29,6 @@ public class RandomUsernameGenerator {
                     .body(String[].class)
                     [0];
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             return randomName.createRandomUsername();
         }
     }
