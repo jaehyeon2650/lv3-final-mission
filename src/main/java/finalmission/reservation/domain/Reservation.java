@@ -14,7 +14,8 @@ import java.time.LocalTime;
 
 @Entity
 public class Reservation {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private LocalDate reservationDate;
@@ -38,19 +39,20 @@ public class Reservation {
 
     }
 
-    public static Reservation createReservationWithoutId(LocalDateTime now, LocalDate reservationDate, Member member, ReservationTime reservationTime){
-        validateDateAndTime(now,reservationDate,reservationTime.getTime());
-        return new Reservation(null,reservationDate,member,reservationTime);
+    public static Reservation createReservationWithoutId(LocalDateTime now, LocalDate reservationDate, Member member,
+                                                         ReservationTime reservationTime) {
+        validateDateAndTime(now, reservationDate, reservationTime.getTime());
+        return new Reservation(null, reservationDate, member, reservationTime);
     }
 
-    private static void validateDateAndTime(LocalDateTime now, LocalDate reservationDate, LocalTime reservationTime){
-        LocalDateTime reservationDateTime = LocalDateTime.of(reservationDate,reservationTime);
-        if(reservationDateTime.isBefore(now)){
+    private static void validateDateAndTime(LocalDateTime now, LocalDate reservationDate, LocalTime reservationTime) {
+        LocalDateTime reservationDateTime = LocalDateTime.of(reservationDate, reservationTime);
+        if (reservationDateTime.isBefore(now)) {
             throw new IllegalArgumentException("지난 시간에 대해서는 예약이 불가능합니다.");
         }
     }
 
-    public boolean isOwner(Long memberId){
+    public boolean isOwner(Long memberId) {
         return this.member.getId().equals(memberId);
     }
 
@@ -62,11 +64,11 @@ public class Reservation {
         return reservationDate;
     }
 
-    public String getReservationName(){
+    public String getReservationName() {
         return member.getUsername();
     }
 
-    public LocalTime getReservationTIme(){
+    public LocalTime getReservationTIme() {
         return reservationTime.getTime();
     }
 

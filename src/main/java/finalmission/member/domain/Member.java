@@ -29,6 +29,10 @@ public class Member {
         this.password = password;
     }
 
+    protected Member() {
+
+    }
+
     public static Member createMemberWithoutId(String username, LocalDate birth, String email, String password) {
         return new Member(null, username, Birth.createAdultBirth(birth, LocalDate.now()), new Email(email), password);
     }
@@ -37,7 +41,7 @@ public class Member {
         return username;
     }
 
-    public String getEmail(){
+    public String getEmail() {
         return email.getEmail();
     }
 
@@ -45,11 +49,7 @@ public class Member {
         return id;
     }
 
-    public boolean isSamePassword(String password){
+    public boolean isSamePassword(String password) {
         return this.password.equals(password);
-    }
-
-    protected Member() {
-
     }
 }

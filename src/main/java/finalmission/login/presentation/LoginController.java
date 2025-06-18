@@ -23,11 +23,11 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Void> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response){
-        log.info("로그인 시도 email = {}",loginRequest.email());
+    public ResponseEntity<Void> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
+        log.info("로그인 시도 email = {}", loginRequest.email());
         String accessToken = loginService.loginAndReturnAccessToken(loginRequest);
-        cookieManager.addAccessToken(accessToken,response);
-        log.info("로그인 성공 email = {}",loginRequest.email());
+        cookieManager.addAccessToken(accessToken, response);
+        log.info("로그인 성공 email = {}", loginRequest.email());
         return ResponseEntity.ok().build();
     }
 }

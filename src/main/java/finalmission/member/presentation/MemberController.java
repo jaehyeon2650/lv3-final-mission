@@ -22,9 +22,9 @@ public class MemberController {
 
     @PostMapping("/members")
     public ResponseEntity<JoinResponse> join(@RequestBody JoinRequest joinRequest) {
-        log.info("회원 가입 시도 email = {}",joinRequest.email());
+        log.info("회원 가입 시도 email = {}", joinRequest.email());
         JoinResponse response = memberService.createMember(joinRequest);
-        log.info("회원 가입 성공 email = {}",joinRequest.email());
+        log.info("회원 가입 성공 email = {}", joinRequest.email());
         return ResponseEntity.created(URI.create("/members/" + response.id())).body(response);
     }
 }
