@@ -1,0 +1,4 @@
+== Member API
+
+=== 회원가입
+operation::member-controller-test/join[snippets='curl-request,http-request,http-response']
