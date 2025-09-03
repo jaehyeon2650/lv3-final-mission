@@ -22,7 +22,6 @@ jwt:
 email:
   api:
     key: email_test_key
-    application:
 
 application:
   ip: localhost
